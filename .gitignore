@@ -1,6 +1,9 @@
 # dependencies
 node_modules
 
+# requirements
+requirements
+
 # yarn
 .yarn/*
 !.yarn/patches
