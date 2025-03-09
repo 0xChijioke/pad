@@ -18,16 +18,22 @@ contract VestingManager is AccessControl {
 
 
 
+/// @notice Enumeration for the vesting options.
+    enum VestingType {
+    
+}
+
+
     
     event VestingScheduleAdded(
         address indexed token,
         address indexed beneficiary,
-        VestingType vestingType
+        IVesting.VestingType vestingType
     );
     event VestingScheduleRemoved(
         address indexed token,
         address indexed beneficiary,
-        VestingType vestingType
+        IVesting.VestingType vestingType
     );
 
 
@@ -41,7 +47,7 @@ contract VestingManager is AccessControl {
      function addVestingSchedule(
         address token,
         address beneficiary,
-        VestingType vestingType,
+        IVesting.VestingType vestingType
     ) external onlyRole(VESTING_ADMIN) {
         
         emit VestingScheduleAdded(token, beneficiary, vestingType);
