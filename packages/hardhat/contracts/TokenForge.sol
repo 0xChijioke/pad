@@ -3,9 +3,21 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
 
 
-contract TokenForge {
+/**
+ * @title TokenForge
+ * @notice 
+ * @dev 
+ */
+contract TokenForge is 
+    Initializable, 
+    UUPSUpgradeable, 
+    AccessControlUpgradeable, 
+    ReentrancyGuardUpgradeable {
+
     struct TokenInfo {
         address creator;
         string name;
@@ -13,6 +25,9 @@ contract TokenForge {
         uint256 totalSupply;
         address[] modules;
     }
+
+    /// @notice Role for token registration and strategy management
+    bytes32 public constant TOKEN_ADMIN_ROLE = keccak256("TOKEN_ADMIN_ROLE");
 
     // Mapping from token address to its info
     mapping(address => TokenInfo) public tokens;
@@ -73,5 +88,10 @@ contract TokenForge {
      */
     function getModules(address token) public view returns (address[] memory) {
         return tokens[token].modules;
-    }
+    } 
+    
+    /**
+     * @dev Supports receiving ETH for fees
+     */
+    receive() external payable {}
 }
