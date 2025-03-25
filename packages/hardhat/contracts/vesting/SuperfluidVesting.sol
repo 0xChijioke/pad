@@ -14,6 +14,11 @@ contract SuperfluidVesting is IVesting {
     /// @notice The SuperToken to be streamed.
     ISuperToken public superToken;
 
+
+    // Role definitions
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 public constant VESTING_MANAGER_ROLE = keccak256("VESTING_MANAGER_ROLE");
+
     /// @notice Structure to track streaming vesting schedules.
     struct StreamSchedule {
         int96 flowRate;
